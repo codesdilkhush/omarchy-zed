@@ -1,6 +1,5 @@
 # Zed Integration for Omarchy
 
-[![Plugin Checks](https://github.com/codesdilkhush/omarchy-zed/actions/workflows/ci.yml/badge.svg)](https://github.com/codesdilkhush/omarchy-zed/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Zed Editor status bar widget and live theme synchronization for Omarchy on Hyprland.
@@ -27,12 +26,6 @@ omarchy plugin add https://github.com/codesdilkhush/omarchy-zed --enable
 ```bash
 omarchy plugin remove codesdilkhush.zed
 ```
-
-## CI / Automated Checks
-
-All commits are continuously validated using GitHub Actions workflow checks, enforcing Omarchy Quattro plugin contract standards, JSON schemas, executable permissions, and shell script linting.
-
-![GitHub Actions CI](actions.png)
 
 ## License
 
