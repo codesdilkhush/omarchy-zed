@@ -2,9 +2,9 @@ name: Plugin Checks
 
 on:
   push:
-    branches: [ main, dev, drip ]
+    branches: [ main, dev ]
   pull_request:
-    branches: [ main, dev, drip ]
+    branches: [ main, dev ]
 
 jobs:
   validate:
