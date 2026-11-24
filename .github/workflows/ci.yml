@@ -1,0 +1,78 @@
+name: Plugin Checks
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    name: Validate Manifest & Scripts
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Validate JSON Files
+        run: |
+          set -e
+          echo "Validating manifest.json..."
+          jq -e . manifest.json > /dev/null
+          
+          echo "Validating i18n translations..."
+          jq -e . i18n/en.json > /dev/null
+
+      - name: Validate Plugin Contract & Schema
+        run: |
+          set -euo pipefail
+          
+          # Verify root documentation & license
+          test -f README.md || (echo "Missing README.md" && exit 1)
+          test -f LICENSE || (echo "Missing LICENSE" && exit 1)
+          
+          # Symlinks are disallowed in Omarchy plugins
+          if [ -n "$(find . -name .git -prune -o -type l -print -quit)" ]; then
+            echo "Error: Symlinks are not allowed in the plugin folder."
+            exit 1
+          fi
+          
+          # Validate schemaVersion
+          version=$(jq -r '.schemaVersion' manifest.json)
+          if [ "$version" != "1" ]; then
+            echo "Error: schemaVersion must be 1"
+            exit 1
+          fi
+
+          # Verify mandatory metadata fields
+          for field in id name version kinds entryPoints author description license; do
+            jq -e --arg f "$field" 'has($f)' manifest.json > /dev/null || (echo "Missing required field: $field" && exit 1)
+          done
+
+          # Validate defaultSection for Omarchy Marketplace
+          section=$(jq -r '.barWidget.defaultSection // ""' manifest.json)
+          if [[ -n "$section" ]] && [[ ! "$section" =~ ^(left|center|right)$ ]]; then
+            echo "Error: barWidget.defaultSection must be left, center, or right (got: $section)"
+            exit 1
+          fi
+
+          # Ensure all declared entry points exist
+          for ep in $(jq -r '.entryPoints | to_entries[] | .value' manifest.json); do
+            if [ ! -f "$ep" ]; then
+              echo "Error: Entry point file '$ep' not found"
+              exit 1
+            fi
+          done
+
+          echo "Plugin contract validation passed!"
+
+      - name: Lint Shell Script
+        run: |
+          set -e
+          test -x zed-status.sh || (echo "zed-status.sh must be executable" && exit 1)
+          bash -n zed-status.sh
+          if command -v shellcheck >/dev/null 2>&1; then
+            shellcheck zed-status.sh
+          fi
+          echo "Shell script validation passed!"
