@@ -29,6 +29,6 @@
     "description": "Launch, focus, and manage Zed with live theme synchronization",
     "category": "Development",
     "allowMultiple": false,
-    "defaultSection": "centerEnd"
+    "defaultSection": "center"
   }
 }
