@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "id": "codesdilkhush.zed",
+  "name": "Zed",
+  "version": "1.0.0",
+  "author": "Dilkhush Kumar <codes.dilkhush@gmail.com>",
+  "maintainer": "Dilkhush Kumar <codes.dilkhush@gmail.com>",
+  "license": "MIT",
+  "description": "Zed Editor integration widget for the Omarchy status bar with live theme synchronization, instant window focus, and workspace actions.",
+  "homepage": "https://github.com/codesdilkhush/omarchy-zed",
+  "repository": "https://github.com/codesdilkhush/omarchy-zed.git",
+  "tags": [
+    "zed",
+    "editor",
+    "omarchy",
+    "omazed",
+    "status-bar",
+    "hyprland",
+    "theme-sync"
+  ],
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "Panel.qml"
+  },
+  "barWidget": {
+    "displayName": "Zed",
+    "description": "Launch, focus, and manage Zed with live theme synchronization",
+    "category": "Development",
+    "allowMultiple": false,
+    "defaultSection": "centerEnd"
+  }
+}

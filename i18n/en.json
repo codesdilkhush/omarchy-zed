@@ -1,0 +1,13 @@
+{
+  "zed.title": "Zed Editor",
+  "zed.running": "Running",
+  "zed.stopped": "Stopped",
+  "zed.synced": "Theme Synced",
+  "zed.notSynced": "Theme Unsynced",
+  "zed.tooltipRunning": "Zed Editor (Running · Synced)",
+  "zed.tooltipStopped": "Zed Editor (Click to launch)",
+  "zed.launch": "Launch Zed",
+  "zed.focus": "Focus Window",
+  "zed.newWindow": "New Workspace Window",
+  "zed.syncTheme": "Sync Theme (Omazed)"
+}
